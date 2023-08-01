@@ -22,15 +22,10 @@ import {useDropzone} from 'react-dropzone';
    }, [acceptedFiles])
    
 
+   const u= data.flatMap(innerArray => innerArray)
+console.log(u)
+      const files = u.map(file => (<di key={file.path}>{file.path} - {file.size/1024} kb</di>));
 
-
-      const files = data.map(file => (
-        <li key={file.path}>
-          {file.path} - {file.size} 
-        </li>
-      ));
-
-      console.log(data);
     
   return (
     <div className="container">
