@@ -12,7 +12,7 @@ import Modal from "react-bootstrap/Modal";
 function Demon() {
   //Modal start
 
-  const [show, setShow]     = useState(false);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,11 +50,7 @@ function Demon() {
   const u = data.flatMap((innerArray) => innerArray);
   //   console.log(u.map((t)=>t.preview))
   const images = u.map((file) => (
-    <img className="image-style"
-      key={file.name}
-      src={file.preview}
-      alt="img"
-    />
+    <img className="image-style" key={file.name} src={file.preview} alt="img" />
   ));
   console.log(images);
 
@@ -100,9 +96,7 @@ function Demon() {
 
   console.log(tyuObject);
 
-
-
-  console.log("kjhresgfbxncmgvjhgfdbhtrdfg",u)
+  console.log("kjhresgfbxncmgvjhgfdbhtrdfg", u);
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={true}>
@@ -131,20 +125,58 @@ function Demon() {
                 </tr>
               </thead>
 
-              {u.map((file, index) => (
-                <>
-                  <tbody>
-                    <tr>
-                      <th scope="row">{index === 0 ? 1 : index + 1}</th>
-                      <td>{file.path}</td>
-                      <td>{file.size / 1024} kb</td>
-                      <td onClick={() => deleteTask(index)}>
-                        <RxCross2 className="delete-style" size={30} />
-                      </td>
-                    </tr>
-                  </tbody>
-                </>
-              ))}
+              {u.map((file, index) => {
+                return tyuObject[index] === "pdf" ? (
+                  <>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"
+                            alt="img"
+                            style={{
+                              width: "30px",
+                              height: "35px",
+                              borderRadius: "5px",
+                              marginLeft: "5px",
+                            }}
+                          />
+                        </td>
+                        <td>{file.path}</td>
+                        <td>{Number(file.size / 1024).toFixed(2)} kb</td>
+                        <td onClick={() => deleteTask(index)}>
+                          <RxCross2 style={{ color: "red" }} size={30} />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </>
+                ) : (
+                  <>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img
+                            src={file.preview}
+                            alt="img"
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "5px",
+                              marginLeft: "5px",
+                            }}
+                          />
+                        </td>
+                        <td>{file.path}</td>
+                        {/* <td>{(file.size / 1024).toFixed(2)} kb</td> */}
+                        <td>{Number(file.size / 1024).toFixed(2)} kb</td>
+                        <td onClick={() => deleteTask(index)}>
+                          <RxCross2 style={{ color: "red" }} size={30} />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </>
+                );
+              })}
             </table>
           </div>
         </Modal.Body>
@@ -172,37 +204,69 @@ function Demon() {
         </Container>
       </Navbar>
 
-      {u.map((file, index) => (
-        <div
-          className="card mb-3  mx-5 shadow p-3 mb-5 bg-body rounded mx-auto card-sytle"
-        
-        >
-          <div className="row g-3 ">
-            <div className="col-md-4">
-              <img className="image-style"
-                src={file.preview}
-                alt=""
-              ></img>
-            </div>
-            <div className="col-md-8 ">
-              <div className="card-body">
-                <h3 class="card-title text-secondary" >File Details</h3>
-                <hr></hr>
-                <p className="card-text">
-                  <h5 className="text-danger">File</h5>
-                  {file.path}
-                </p>
-                <hr></hr>
-                <p className="card-text">
-                  <h5 className="text-danger">File Size</h5>
-                  {file.size / 1024} kb
-                </p>
-                <hr></hr>
+      {/* {document ? images : console.log("jhgfdx")} */}
+
+      {document
+        ? u.map((file, index) => {
+            return tyuObject[index] === "pdf" ? (
+              <div className="card mb-3  mx-5 shadow p-3 mb-5 bg-body rounded mx-auto card-sytle">
+                <div className="row g-3 ">
+                  <div className="col-md-4">
+                    <img
+                      className="image-style"
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"
+                      alt=""
+                    ></img>
+                  </div>
+                  <div className="col-md-8 ">
+                    <div className="card-body">
+                      <h3 class="card-title text-secondary">File Details</h3>
+                      <hr></hr>
+                      <p className="card-text">
+                        <h5 className="text-danger">File</h5>
+                        {file.path}
+                      </p>
+                      <hr></hr>
+                      <p className="card-text">
+                        <h5 className="text-danger">File Size</h5>
+                        {Number(file.size / 1024).toFixed(2)} kb
+                      </p>
+                      <hr></hr>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      ))}
+            ) : (
+              <div className="card mb-3  mx-5 shadow p-3 mb-5 bg-body rounded mx-auto card-sytle">
+                <div className="row g-3 ">
+                  <div className="col-md-4">
+                    <img
+                      className="image-style"
+                      src={file.preview}
+                      alt=""
+                    ></img>
+                  </div>
+                  <div className="col-md-8 ">
+                    <div className="card-body">
+                      <h3 class="card-title text-secondary">File Details</h3>
+                      <hr></hr>
+                      <p className="card-text">
+                        <h5 className="text-danger">File</h5>
+                        {file.path}
+                      </p>
+                      <hr></hr>
+                      <p className="card-text">
+                        <h5 className="text-danger">File Size</h5>
+                        {Number(file.size / 1024).toFixed(2)} kb
+                      </p>
+                      <hr></hr>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        : console.log("kjkhgf")}
     </>
   );
 }
