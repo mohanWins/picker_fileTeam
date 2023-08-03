@@ -19,6 +19,12 @@ function Demon() {
   const handleShow = () => setShow(true);
   //Modal end
 
+  //format start
+
+  const [document, setdocument] = useState(false);
+
+  //format end
+
   const [first, setfirst] = useState([]);
   const [data, setdata] = useState([]);
 
@@ -27,7 +33,6 @@ function Demon() {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*,audio/*,video/*",
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
       setfirst(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -50,10 +55,15 @@ function Demon() {
       key={file.name}
       src={file.preview}
       alt="img"
-      style={{ width: "200px", height: "200px", borderRadius: "10px" }}
+      style={{
+        width: "200px",
+        height: "200px",
+        borderRadius: "10px",
+        marginLeft: "10px",
+      }}
     />
   ));
-  // console.log(images)
+  console.log(images);
 
   function deleteTask(path) {
     Swal.fire({
@@ -80,8 +90,26 @@ function Demon() {
     });
   }
 
-  // images.map((t)=>t.key.split(".").pop())
+  function HandleAdd() {
+    debugger;
+    setdocument(true);
+    handleClose();
+  }
 
+  const tyu = u.map((file) => file.type.split("/").pop());
+
+  const tyuObject = tyu.reduce((obj, value, index) => {
+    obj[index] = value;
+    return obj;
+  }, {});
+
+  console.log(tyuObject);
+
+  console.log(tyuObject);
+
+
+
+  console.log("kjhresgfbxncmgvjhgfdbhtrdfg",u)
   return (
     <>
       <Modal show={show} onHide={handleClose} animation={true}>
@@ -103,31 +131,72 @@ function Demon() {
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Id </th>
+                  <th scope="col">icon </th>
                   <th scope="col">File</th>
                   <th scope="col">size</th>
                   <th scope="col">action</th>
                 </tr>
               </thead>
 
-              {u.map((file, index) => (
-                <>
-                  <tbody>
-                    <tr>
-                      <th scope="row">{index === 0 ? 1 : index + 1}</th>
-                      <td>{file.path}</td>
-                      <td>{file.size / 1024} kb</td>
-                      <td onClick={() => deleteTask(index)}>
-                        <RxCross2 style={{ color: "red" }} size={30} />
-                      </td>
-                    </tr>
-                  </tbody>
-                </>
-              ))}
+              {u.map((file, index) => {
+                return tyuObject[index] === "pdf" ? (
+                  <>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"
+                            alt="img"
+                            style={{
+                              width: "30px",
+                              height: "35px",
+                              borderRadius: "5px",
+                              marginLeft: "5px",
+                            }}
+                          />
+                        </td>
+                        <td>{file.path}</td>
+                        <td>{Number(file.size / 1024).toFixed(2)} kb</td>
+                        <td onClick={() => deleteTask(index)}>
+                          <RxCross2 style={{ color: "red" }} size={30} />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </>
+                ) : (
+                  <>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <img
+                            src={file.preview}
+                            alt="img"
+                            style={{
+                              width: "30px",
+                              height: "30px",
+                              borderRadius: "5px",
+                              marginLeft: "5px",
+                            }}
+                          />
+                        </td>
+                        <td>{file.path}</td>
+                        {/* <td>{(file.size / 1024).toFixed(2)} kb</td> */}
+                        <td>{Number(file.size / 1024).toFixed(2)} kb</td>
+                        <td onClick={() => deleteTask(index)}>
+                          <RxCross2 style={{ color: "red" }} size={30} />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </>
+                );
+              })}
             </table>
           </div>
         </Modal.Body>
         <Modal.Footer>
+          <Button variant="primary" onClick={HandleAdd}>
+            Add
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -148,7 +217,9 @@ function Demon() {
         </Container>
       </Navbar>
 
-      <div className="mt-5  d-flex justify-content-center   "></div>
+      <div className="mt-5  d-flex justify-content-center   ">
+        {document ? images : console.log("jhgfdx")}
+      </div>
     </>
   );
 }
