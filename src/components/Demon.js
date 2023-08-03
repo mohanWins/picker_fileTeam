@@ -13,7 +13,7 @@ import Modal from "react-bootstrap/Modal";
 function Demon() {
   //Modal start
 
-  const [show, setShow] = useState(false);
+  const [show, setShow]     = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
