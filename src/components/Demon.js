@@ -9,7 +9,24 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+
+
+export const Modal1 = ({ src, alt,  onClose }) => {
+  return (
+    <div className="modalImage">
+      <span className="close1" onClick={onClose}>
+        &times;
+      </span>
+      <img className="modal-content1" src={src} alt={alt} />
+    </div>
+  )
+}
+
+
 function Demon() {
+  const [isOpen, setIsOpen] = useState(false);
+  const showModal = () => setIsOpen(true);
+
   //Modal start
 
   const [show, setShow] = useState(false);
@@ -116,14 +133,14 @@ function Demon() {
           <br></br>
           <div>
             <table className="table">
-              <thead>
+              {/* <thead>
                 <tr>
                   <th scope="col">icon </th>
                   <th scope="col">File</th>
                   <th scope="col">size</th>
                   <th scope="col">action</th>
                 </tr>
-              </thead>
+              </thead> */}
 
               {u.map((file, index) => {
                 return tyuObject[index] === "pdf" ? (
@@ -132,20 +149,15 @@ function Demon() {
                       <tr>
                         <td>
                           <img
+                            className="icon-style"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"
                             alt="img"
-                            style={{
-                              width: "30px",
-                              height: "35px",
-                              borderRadius: "5px",
-                              marginLeft: "5px",
-                            }}
                           />
                         </td>
                         <td>{file.path}</td>
                         <td>{Number(file.size / 1024).toFixed(2)} kb</td>
                         <td onClick={() => deleteTask(index)}>
-                          <RxCross2 style={{ color: "red" }} size={30} />
+                          <RxCross2 className="delete-style" size={30} />
                         </td>
                       </tr>
                     </tbody>
@@ -156,21 +168,16 @@ function Demon() {
                       <tr>
                         <td>
                           <img
+                            className="icon-style"
                             src={file.preview}
                             alt="img"
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              borderRadius: "5px",
-                              marginLeft: "5px",
-                            }}
                           />
                         </td>
                         <td>{file.path}</td>
                         {/* <td>{(file.size / 1024).toFixed(2)} kb</td> */}
                         <td>{Number(file.size / 1024).toFixed(2)} kb</td>
                         <td onClick={() => deleteTask(index)}>
-                          <RxCross2 style={{ color: "red" }} size={30} />
+                          <RxCross2 className="delete-style" size={30} />
                         </td>
                       </tr>
                     </tbody>
@@ -239,12 +246,20 @@ function Demon() {
             ) : (
               <div className="card mb-3  mx-5 shadow p-3 mb-5 bg-body rounded mx-auto card-sytle">
                 <div className="row g-3 ">
-                  <div className="col-md-4">
+                  <div className="col-md-4 container">
                     <img
                       className="image-style"
+                      onClick={showModal}
                       src={file.preview}
                       alt=""
-                    ></img>
+                    />
+                    {isOpen && (
+                      <Modal1
+                        src={file.preview}
+                        alt=""
+                        onClose={() => setIsOpen(false)}
+                      />
+                    )}
                   </div>
                   <div className="col-md-8 ">
                     <div className="card-body">
