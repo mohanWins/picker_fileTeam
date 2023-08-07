@@ -8,11 +8,8 @@ import { RxCross2 } from "react-icons/rx";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import convertSize from "convert-size";
 
 function Demon() {
-
-
   //Modal start
 
   const [show, setShow] = useState(false);
@@ -136,21 +133,16 @@ function Demon() {
                       <tr>
                         <td>
                           <img
+                            className="icon-style"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/1200px-PDF_file_icon.svg.png"
                             alt="img"
-                            style={{
-                              width: "30px",
-                              height: "35px",
-                              borderRadius: "5px",
-                              marginLeft: "5px",
-                            }}
                           />
                         </td>
                         <td>{file.path}</td>
                         {/* <td>{Number(file.size / 1024).toFixed(2)} </td> */}
                         <td>{convertSize(file.size, { accuracy: 2 })} </td>
                         <td onClick={() => deleteTask(index)}>
-                          <RxCross2 style={{ color: "red" }} size={30} />
+                          <RxCross2 className="delete-style" size={30} />
                         </td>
                       </tr>
                     </tbody>
@@ -162,14 +154,9 @@ function Demon() {
                       <tr>
                         <td>
                           <img
+                            className="icon-style"
                             src={file.preview}
                             alt="img"
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              borderRadius: "5px",
-                              marginLeft: "5px",
-                            }}
                           />
                         </td>
                         <td>{file.path}</td>
@@ -232,7 +219,7 @@ function Demon() {
                         {/* <td>{(file.size / 1024).toFixed(2)} kb</td> */}
                         <td>{convertSize(file.size, { accuracy: 2 })}</td>
                         <td onClick={() => deleteTask(index)}>
-                          <RxCross2 style={{ color: "red" }} size={30} />
+                          <RxCross2 className="delete-style" size={30} />
                         </td>
                       </tr>
                     </tbody>
@@ -399,10 +386,11 @@ function Demon() {
               <div className="card mb-3  mx-5 shadow p-3 mb-5 bg-body rounded mx-auto card-sytle">
                 <div className="row g-3 ">
                   <div className="col-md-4">
-                    <video className="image-style"
+                    <img
+                      className="image-style"
                       src={file.preview}
-                    controls
-                    ></video>
+                      alt=""
+                    ></img>
                   </div>
                   <div className="col-md-8 ">
                     <div className="card-body">
